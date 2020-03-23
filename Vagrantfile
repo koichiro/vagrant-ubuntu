@@ -72,7 +72,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get upgrade -y
-    apt-get install -y build-essential emacs-nox w3m git ca-certificates libssl-dev zlib1g-dev
+    apt-get install -y build-essential emacs-nox w3m git ca-certificates libssl-dev zlib1g-dev golang libsqlite3-dev
     apt-get autoremove -y
   SHELL
 
