@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
     echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
     source ~/.bash_profile
-    rbenv install 2.7.0
-    rbenv global 2.7.0
+    rbenv install 2.7.1
+    rbenv global 2.7.1
   SHELL
 end
