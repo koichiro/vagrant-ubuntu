@@ -61,6 +61,7 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
+  config.disksize.size = '100GB'
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -73,7 +74,17 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade -y
     apt-get install -y build-essential emacs-nox w3m git ca-certificates libssl-dev zlib1g-dev golang libsqlite3-dev libxslt-dev libxml2-dev
+    apt-get install -y nodejs npm
     apt-get autoremove -y
+  SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    npm install n -g
+    n stable
+    apt-get purge -y nodejs npm
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    apt-get update -y && apt-get install -y yarn
   SHELL
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
