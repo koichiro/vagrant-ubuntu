@@ -71,11 +71,10 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
+    apt-get update -y
     apt-get upgrade -y
     apt-get install -y build-essential emacs-nox w3m git ca-certificates libssl-dev zlib1g-dev golang libsqlite3-dev libxslt-dev libxml2-dev
     apt-get install -y nodejs npm
-    apt-get autoremove -y
   SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
@@ -84,7 +83,8 @@ Vagrant.configure("2") do |config|
     apt-get purge -y nodejs npm
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-    apt-get update -y && apt-get install -y yarn
+    apt-get update -y && apt-get install -y yarn libssl-dev
+    apt-get autoremove -y && apt-get autoclean -y
   SHELL
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
